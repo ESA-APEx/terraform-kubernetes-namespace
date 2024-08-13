@@ -10,7 +10,6 @@ resource "kubernetes_manifest" "default_deny_all" {
   }
 }
 
-
 resource "kubernetes_manifest" "allow_from_same_namespace" {
   manifest = {
     "apiVersion" = "security.istio.io/v1"
@@ -35,7 +34,6 @@ resource "kubernetes_manifest" "allow_from_same_namespace" {
   }
 }
 
-
 resource "kubernetes_manifest" "allow_ingress_from_ingress" {
   manifest = {
     "apiVersion" = "security.istio.io/v1"
@@ -51,43 +49,6 @@ resource "kubernetes_manifest" "allow_ingress_from_ingress" {
             {
               "source" = {
                 "namespaces" = ["ingress"]
-              }
-            }
-          ]
-        }
-      ]
-    }
-  }
-}
-
-
-resource "kubernetes_manifest" "allow_ingress_to_coredns" {
-  manifest = {
-    "apiVersion" = "security.istio.io/v1"
-    "kind"       = "AuthorizationPolicy"
-    "metadata" = {
-      "name"      = "allow-ingress-to-coredns"
-      "namespace" = "kube-system"
-    }
-    "spec" = {
-      "selector" = {
-        "matchLabels" = {
-          "k8s-app" = "coredns"
-        }
-      }
-      "rules" = [
-        {
-          "from" = [
-            {
-              "source" = {
-                "namespaces" = ["*"]
-              }
-            }
-          ]
-          "to" = [
-            {
-              "operation" = {
-                "ports" = ["53"]
               }
             }
           ]
