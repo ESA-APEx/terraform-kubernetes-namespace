@@ -5,9 +5,6 @@ resource "kubernetes_manifest" "default_deny_all" {
     "metadata" = {
       "name"      = "default-deny-all"
       "namespace" = kubernetes_namespace_v1.namespace.metadata[0].name
-      "annotations" = {
-        "istio.io/dry-run" = "true"
-      }
     }
     "spec" = {}
   }
@@ -20,9 +17,6 @@ resource "kubernetes_manifest" "allow_from_same_namespace" {
     "metadata" = {
       "name"      = "allow-from-same-namespace"
       "namespace" = kubernetes_namespace_v1.namespace.metadata[0].name
-      "annotations" = {
-        "istio.io/dry-run" = "true"
-      }
     }
     "spec" = {
       "rules" = [
@@ -47,9 +41,6 @@ resource "kubernetes_manifest" "allow_ingress_from_ingress" {
     "metadata" = {
       "name"      = "allow-ingress"
       "namespace" = kubernetes_namespace_v1.namespace.metadata[0].name
-      "annotations" = {
-        "istio.io/dry-run" = "true"
-      }
     }
     "spec" = {
       "rules" = [
@@ -75,9 +66,6 @@ resource "kubernetes_manifest" "allow_ingress_from_alloy" {
     "metadata" = {
       "name"      = "allow-grafana-alloy"
       "namespace" = kubernetes_namespace_v1.namespace.metadata[0].name
-      "annotations" = {
-        "istio.io/dry-run" = "true"
-      }
     }
     "spec" = {
       "rules" = [
