@@ -1,14 +1,14 @@
-# resource "kubernetes_manifest" "default_deny_all" {
-#   manifest = {
-#     "apiVersion" = "security.istio.io/v1"
-#     "kind"       = "AuthorizationPolicy"
-#     "metadata" = {
-#       "name"      = "default-deny-all"
-#       "namespace" = kubernetes_namespace_v1.namespace.metadata[0].name
-#     }
-#     "spec" = {}
-#   }
-# }
+resource "kubernetes_manifest" "default_deny_all" {
+  manifest = {
+    "apiVersion" = "security.istio.io/v1"
+    "kind"       = "AuthorizationPolicy"
+    "metadata" = {
+      "name"      = "default-deny-all"
+      "namespace" = kubernetes_namespace_v1.namespace.metadata[0].name
+    }
+    "spec" = {}
+  }
+}
 
 resource "kubernetes_manifest" "allow_from_same_namespace" {
   manifest = {
