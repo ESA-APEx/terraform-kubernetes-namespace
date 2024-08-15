@@ -58,7 +58,6 @@ resource "kubernetes_manifest" "allow_ingress_from_ingress" {
   }
 }
 
-
 resource "kubernetes_manifest" "allow_ingress_from_alloy" {
   manifest = {
     "apiVersion" = "security.istio.io/v1"
@@ -74,6 +73,30 @@ resource "kubernetes_manifest" "allow_ingress_from_alloy" {
             {
               "source" = {
                 "namespaces" = ["alloy"]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+
+resource "kubernetes_manifest" "allow_ingress_from_istio_system" {
+  manifest = {
+    "apiVersion" = "security.istio.io/v1"
+    "kind"       = "AuthorizationPolicy"
+    "metadata" = {
+      "name"      = "allow-istio-system"
+      "namespace" = kubernetes_namespace_v1.namespace.metadata[0].name
+    }
+    "spec" = {
+      "rules" = [
+        {
+          "from" = [
+            {
+              "source" = {
+                "namespaces" = ["istio-system"]
               }
             }
           ]
